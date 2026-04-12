@@ -1,0 +1,765 @@
+[
+  {
+    "id": "auli-chopta-serenity-trail",
+    "title": "Auli Snowline & Chopta Serenity Trail",
+    "location": "Dehradun • Auli • Chopta",
+    "region": "Garhwal",
+    "category": "Retreat",
+    "month": "March",
+    "duration": "6D / 5N",
+    "regularPrice": 25251,
+    "discountedPrice": 21399,
+    "featured": true,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Snow & Meadows",
+    "image": "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A premium Garhwal circuit blending Dehradun’s easy arrival, Auli’s alpine panoramas and Chopta’s peaceful Himalayan meadows. Designed for travellers who want mountain scenery, clean stays, private transfers and a well-paced experience without rushing the route.",
+    "hotelType": "Boutique hill stays with scenic views",
+    "transport": "Private cab for complete circuit",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 5 nights hotel accommodation",
+      "🍽️ Daily breakfast and dinner",
+      "🚘 Private transfers and sightseeing as per plan",
+      "🧭 Dedicated trip coordination support",
+      "🥾 Guided local walk / easy trekking assistance in Chopta",
+      "📸 Scenic stop planning for photography"
+    ],
+    "exclusions": [
+      "✈️ Flight / train tickets till Dehradun",
+      "🍴 Lunch, snacks and personal orders",
+      "🎫 Entry tickets, chairlift or activity charges",
+      "💸 Tips, shopping and personal expenses",
+      "🌦️ Any expense due to weather or road closure"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Dehradun, assisted pickup and relaxed evening check-in.",
+      "Day 2: Scenic drive to Auli with photo halts and mountain-view stay.",
+      "Day 3: Auli sightseeing, cable car zone / meadow exploration and leisure time.",
+      "Day 4: Drive to Chopta via panoramic Garhwal stretches and sunset viewpoints.",
+      "Day 5: Morning nature walk / optional Tungnath-Chandrashila side exploration and free evening.",
+      "Day 6: Return towards Dehradun for onward departure."
+    ]
+  },
+  {
+    "id": "kumaon-lakes-wild-trails",
+    "title": "Kumaon Lakes, Orchards & Wild Trails",
+    "location": "Nainital • Ranikhet • Almora • Jim Corbett",
+    "region": "Kumaon",
+    "category": "Heritage",
+    "month": "April",
+    "duration": "6D / 5N",
+    "regularPrice": 24367,
+    "discountedPrice": 20650,
+    "featured": true,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Kumaon Signature",
+    "image": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A carefully balanced Kumaon holiday covering lake views, cantonment calm, orchard country and jungle-edge leisure. This route is perfect for families and couples seeking fresh weather, heritage ambience and a polished mountain-to-forest progression.",
+    "hotelType": "Premium lake-facing and forest-edge hotels",
+    "transport": "Private cab throughout the route",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 5 nights stay in selected premium hotels",
+      "🍽️ Breakfast and dinner throughout",
+      "🚘 Private vehicle for complete sightseeing",
+      "🌄 Sunset / viewpoint stop assistance",
+      "🌿 Nature and heritage route coverage",
+      "🧭 On-trip support and coordination"
+    ],
+    "exclusions": [
+      "🚆 Airfare / rail tickets",
+      "🍴 Lunch and extra café bills",
+      "🎫 Safari permit, monument and boating tickets",
+      "💸 Laundry, shopping and personal expenses",
+      "📷 Camera / guide charges not listed"
+    ],
+    "itinerary": [
+      "Day 1: Arrival at Nainital, lake walk and check-in.",
+      "Day 2: Nainital local sightseeing with viewpoints, lake zone and mall road time.",
+      "Day 3: Proceed to Ranikhet, visit orchard / golf side stretches and continue leisure.",
+      "Day 4: Explore Almora’s ridge-town charm, temples and market pockets.",
+      "Day 5: Drive to Jim Corbett, relax at resort and optional evening nature experience.",
+      "Day 6: Departure after breakfast with onward drop assistance."
+    ]
+  },
+  {
+    "id": "ganga-gateway-queen-of-hills",
+    "title": "Ganga Gateway & Queen of Hills Circuit",
+    "location": "Haridwar • Mussoorie • Rishikesh • Dehradun",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "September",
+    "duration": "6D / 5N",
+    "regularPrice": 21830,
+    "discountedPrice": 18500,
+    "featured": true,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Aarti & Hills",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A devotional yet comfortable itinerary that brings together Haridwar’s spiritual energy, Mussoorie’s colonial hill charm, Rishikesh’s riverfront aura and Dehradun’s smooth connectivity. Ideal for travellers who want darshan, mountain leisure and premium route handling in one journey.",
+    "hotelType": "Comfort stays across spiritual and hill destinations",
+    "transport": "Private cab with city-to-city transfers",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 5 nights hotel accommodation",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private transfers and sightseeing",
+      "🛕 Har Ki Pauri / Ganga Aarti assistance",
+      "🌊 Rishikesh riverfront visit support",
+      "🧭 Trip coordination from arrival to departure"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Travel to starting city",
+      "🍴 Lunch and beverages",
+      "🎫 Ropeway, entry or rafting charges",
+      "💸 Personal shopping, puja and donation amounts",
+      "🧾 Anything not specifically listed"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Haridwar, evening Ganga Aarti and check-in.",
+      "Day 2: Temple visits and drive to Mussoorie for overnight stay.",
+      "Day 3: Mussoorie local sightseeing including viewpoints and leisure market walk.",
+      "Day 4: Travel to Rishikesh via Dehradun with evening riverfront time.",
+      "Day 5: Rishikesh sightseeing, café / ghat circuit and optional spiritual experiences.",
+      "Day 6: Departure from Dehradun after breakfast."
+    ]
+  },
+  {
+    "id": "cedar-heights-of-garhwal",
+    "title": "Cedar Heights of Garhwal",
+    "location": "Kanatal • Dhanaulti • Chakrata",
+    "region": "Garhwal",
+    "category": "Retreat",
+    "month": "May",
+    "duration": "7D / 6N",
+    "regularPrice": 26845,
+    "discountedPrice": 22750,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Slow Mountain Living",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A slower and more exclusive mountain circuit covering quiet forest stays, high viewpoints and crisp Himalayan weather. Perfect for travellers who prefer cedar woods, boutique hill properties and less-crowded Himalayan destinations.",
+    "hotelType": "Boutique woodland and valley-view stays",
+    "transport": "Private cab with relaxed intercity pacing",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 6 nights premium hill accommodation",
+      "🍽️ Daily breakfast and dinner",
+      "🚘 Private sightseeing and transfers",
+      "🌲 Eco-park, forest and viewpoint coverage",
+      "🥾 Easy nature walk / village trail support",
+      "📍 Curated scenic halts during drives"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Travel till Dehradun",
+      "🍴 Lunch, room service and snacks",
+      "🎫 Entry tickets and adventure activities",
+      "💸 Personal expenses and shopping",
+      "🌧️ Weather-related optional costs"
+    ],
+    "itinerary": [
+      "Day 1: Arrival and transfer to Kanatal, relaxed evening with valley views.",
+      "Day 2: Kanatal local exploration, camp side leisure and forest edge walk.",
+      "Day 3: Drive to Dhanaulti with eco-park stop and scenic check-in.",
+      "Day 4: Dhanaulti sightseeing and free time for slow mountain relaxation.",
+      "Day 5: Continue to Chakrata via beautiful hill roads and hidden viewpoints.",
+      "Day 6: Chakrata exploration including waterfalls / cliff side viewpoints.",
+      "Day 7: Return journey for onward departure."
+    ]
+  },
+  {
+    "id": "grand-devbhoomi-panorama",
+    "title": "Grand Devbhoomi Panorama",
+    "location": "Haridwar • Rishikesh • Mussoorie • Dehradun • Nainital • Ranikhet • Almora • Jim Corbett",
+    "region": "Uttarakhand",
+    "category": "Leisure",
+    "month": "October",
+    "duration": "10D / 9N",
+    "regularPrice": 37288,
+    "discountedPrice": 31600,
+    "featured": true,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Complete Uttarakhand",
+    "image": "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A sweeping Uttarakhand holiday for travellers who want one large-format circuit combining spiritual gateways, hill stations, lakes, heritage valleys and wildlife-edge comfort. The route is paced to feel complete yet polished, with fewer logistical headaches for longer-stay guests.",
+    "hotelType": "Premium mixed stays across city, hills and wildlife zones",
+    "transport": "Private vehicle for the full 10-day circuit",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 9 nights curated accommodation",
+      "🍽️ Breakfast and dinner throughout",
+      "🚘 Complete private vehicle support",
+      "🛕 Spiritual stop assistance in Haridwar / Rishikesh",
+      "🌄 Hill station and Kumaon sightseeing",
+      "🧭 End-to-end route planning and support"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 To-and-from travel tickets",
+      "🍴 Lunch, snacks and special meal requests",
+      "🎫 Boating, safari, ropeway and entry charges",
+      "💸 Personal shopping / tips / donations",
+      "🧾 Any optional activity not listed"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Haridwar and evening Ganga Aarti.",
+      "Day 2: Haridwar to Rishikesh with local temple and ghat visits.",
+      "Day 3: Rishikesh to Mussoorie via Dehradun, leisure evening.",
+      "Day 4: Mussoorie sightseeing and hill market stroll.",
+      "Day 5: Drive towards Nainital and lake-side check-in.",
+      "Day 6: Nainital exploration with major viewpoints and leisure time.",
+      "Day 7: Ranikhet and Almora circuit with cultural ridge-town experience.",
+      "Day 8: Continue to Jim Corbett and relax at resort.",
+      "Day 9: Resort leisure, optional safari support and scenic downtime.",
+      "Day 10: Departure after breakfast with onward assistance."
+    ]
+  },
+  {
+    "id": "lake-hills-ganga-retreat",
+    "title": "Lake, Hills & Ganga Retreat",
+    "location": "Nainital • Mussoorie • Rishikesh",
+    "region": "Uttarakhand",
+    "category": "Leisure",
+    "month": "June",
+    "duration": "6D / 5N",
+    "regularPrice": 25193,
+    "discountedPrice": 21350,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Most Loved Circuit",
+    "image": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A refined multi-mood itinerary featuring lakeside calm, classic hill-station charm and the spiritual softness of Rishikesh. It suits guests who want photogenic landscapes, gentle pace and a premium balance between leisure and spirituality.",
+    "hotelType": "Premium stays in lake, hill and riverfront destinations",
+    "transport": "Private cab for the complete route",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 5 nights stay in premium hotels",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private intercity and local transfers",
+      "🌅 Viewpoint coverage and leisure halts",
+      "🌊 Rishikesh ghat visit assistance",
+      "🧭 Dedicated travel coordination"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Tickets till pickup point",
+      "🍴 Lunch, café and snack bills",
+      "🎫 Boating / ropeway / rafting / entry charges",
+      "💸 Personal shopping and incidental expenses",
+      "🧾 Anything not mentioned in inclusions"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Nainital and relaxed lakefront evening.",
+      "Day 2: Nainital sightseeing with viewpoints and local market.",
+      "Day 3: Transfer to Mussoorie with scenic breakpoints.",
+      "Day 4: Mussoorie local exploration and leisure hours.",
+      "Day 5: Drive to Rishikesh, check-in and evening ghat experience.",
+      "Day 6: Morning sightseeing and departure."
+    ]
+  },
+  {
+    "id": "kumaon-wilderness-mussoorie-escape",
+    "title": "Kumaon Wilderness & Mussoorie Escape",
+    "location": "Nainital • Jim Corbett • Mussoorie",
+    "region": "Uttarakhand",
+    "category": "Leisure",
+    "month": "November",
+    "duration": "6D / 5N",
+    "regularPrice": 26078,
+    "discountedPrice": 22100,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Lake to Jungle",
+    "image": "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A smartly crafted route linking the softness of Nainital, the wild edge of Corbett and the timeless hill appeal of Mussoorie. Great for guests who enjoy variety—lakes, forest ambience and hill-station comfort in one polished journey.",
+    "hotelType": "Premium stays with lake, forest and hill ambience",
+    "transport": "Private cab for all transfers and local routes",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 5 nights hotel / resort stay",
+      "🍽️ Daily breakfast and dinner",
+      "🚘 Private vehicle for full itinerary",
+      "🌲 Forest-side leisure and optional safari guidance",
+      "🌄 Scenic viewpoint coverage",
+      "🧭 Route assistance and trip support"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Arrival and departure tickets",
+      "🍴 Lunch and personal beverages",
+      "🎫 Safari, boating and activity tickets",
+      "💸 Tips, shopping and personal bills",
+      "📄 Insurance and medical expenses"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Nainital and evening by the lake.",
+      "Day 2: Nainital sightseeing and leisure shopping.",
+      "Day 3: Proceed to Jim Corbett and relax at the resort.",
+      "Day 4: Optional safari support and onward drive to Mussoorie.",
+      "Day 5: Mussoorie local sightseeing with free evening.",
+      "Day 6: Departure after breakfast."
+    ]
+  },
+  {
+    "id": "kainchi-dham-blessings-wild-trail",
+    "title": "Kainchi Dham Blessings & Wild Trail",
+    "location": "Nainital (Kainchi Dham) • Almora • Jim Corbett • Haridwar • Rishikesh",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "July",
+    "duration": "7D / 6N",
+    "regularPrice": 24160,
+    "discountedPrice": 20475,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Temple & Wilderness",
+    "image": "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A spiritually enriched Uttarakhand route connecting Kainchi Dham, serene Kumaon landscapes, Jim Corbett’s forest calm and the sacred river energy of Haridwar-Rishikesh. This package is ideal for travellers seeking blessings, scenic travel and clean route management.",
+    "hotelType": "Comfort and premium stays across temple, hill and river towns",
+    "transport": "Private cab with long-route coordination",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 6 nights accommodation",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private transfers and sightseeing",
+      "🛕 Kainchi Dham / ghat visit support",
+      "🌲 Forest-edge leisure coverage",
+      "🧭 On-call trip coordination"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Travel tickets to starting city",
+      "🍴 Lunch and extra meals",
+      "🎫 Safari / entry / boating / activity charges",
+      "💸 Donations, shopping and personal expenses",
+      "🧾 Anything not clearly listed"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Nainital and evening acclimatisation.",
+      "Day 2: Visit Kainchi Dham and continue towards Almora.",
+      "Day 3: Almora ridge-town sightseeing and transfer to Jim Corbett.",
+      "Day 4: Leisure resort morning and proceed towards Haridwar.",
+      "Day 5: Haridwar spiritual circuit and evening Ganga Aarti.",
+      "Day 6: Rishikesh sightseeing, ghats and iconic suspension bridge zone.",
+      "Day 7: Departure after breakfast."
+    ]
+  },
+  {
+    "id": "himalayan-leisure-ganga-aarti-circuit",
+    "title": "Himalayan Leisure & Ganga Aarti Circuit",
+    "location": "Nainital • Mussoorie • Haridwar • Rishikesh",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "August",
+    "duration": "7D / 6N",
+    "regularPrice": 23211,
+    "discountedPrice": 19670,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Lakes, Hills & Aarti",
+    "image": "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "An uplifting Uttarakhand journey that combines lakeside relaxation, queen-of-hills elegance and the devotional atmosphere of Haridwar-Rishikesh. Well suited for families looking for a comfortable hill holiday with sacred river experiences.",
+    "hotelType": "Premium mixed-category stays",
+    "transport": "Private vehicle with sightseeing support",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 6 nights stay",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private cab for all sectors",
+      "🌄 Key hill viewpoints and market walks",
+      "🛕 Haridwar / Rishikesh spiritual experiences",
+      "📞 Trip assistance throughout"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Travel tickets",
+      "🍴 Lunch, snacks and café bills",
+      "🎫 Boating, ropeway and optional activities",
+      "💸 Personal shopping and expenses",
+      "🧾 Costs due to itinerary changes / weather"
+    ],
+    "itinerary": [
+      "Day 1: Arrive in Nainital and settle in.",
+      "Day 2: Explore Nainital’s lake district and viewpoints.",
+      "Day 3: Drive to Mussoorie with evening leisure.",
+      "Day 4: Mussoorie sightseeing and local market time.",
+      "Day 5: Proceed to Haridwar, attend evening Aarti.",
+      "Day 6: Rishikesh sightseeing with riverfront and spiritual stops.",
+      "Day 7: Departure from Uttarakhand."
+    ]
+  },
+  {
+    "id": "naini-lake-corbett-wilderness-break",
+    "title": "Naini Lake & Corbett Wilderness Break",
+    "location": "Nainital • Jim Corbett",
+    "region": "Kumaon",
+    "category": "Leisure",
+    "month": "December",
+    "duration": "5D / 4N",
+    "regularPrice": 16815,
+    "discountedPrice": 14250,
+    "featured": false,
+    "pilgrimageSpecial": false,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Short Escape",
+    "image": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A short yet polished holiday built for guests who want a refreshing mix of lakeside beauty and forest-resort downtime. This compact package works especially well for quick family breaks and couples seeking an easy Uttarakhand getaway.",
+    "hotelType": "Comfort lake and jungle resort stays",
+    "transport": "Private cab from pickup to drop",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 4 nights accommodation",
+      "🍽️ Breakfast and dinner",
+      "🚘 Local sightseeing and transfers",
+      "🌅 Nainital viewpoints and leisure stop support",
+      "🌲 Corbett resort stay assistance",
+      "🧭 Smooth short-trip planning"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Travel tickets",
+      "🍴 Lunch and refreshments",
+      "🎫 Safari, boating and entry tickets",
+      "💸 Personal shopping / laundry / tips",
+      "🧾 Optional experiences not listed"
+    ],
+    "itinerary": [
+      "Day 1: Arrival in Nainital and leisure check-in.",
+      "Day 2: Nainital local sightseeing and market time.",
+      "Day 3: Transfer to Jim Corbett and resort leisure.",
+      "Day 4: Optional safari assistance and relaxed forest-side day.",
+      "Day 5: Departure after breakfast."
+    ]
+  },
+  {
+    "id": "kedarnath-shakti-darshan",
+    "title": "Kedarnath Shakti Darshan Retreat",
+    "location": "Kedarnath",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "May",
+    "duration": "4D / 3N",
+    "regularPrice": 22419,
+    "discountedPrice": 18999,
+    "featured": false,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Pilgrimage Special",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A spiritually focused Kedarnath itinerary arranged with smooth route handling, premium stays where available and a calm darshan rhythm. Designed for devotees who want comfort, coordination and a less stressful Himalayan pilgrimage movement.",
+    "hotelType": "Comfort mountain stays with pilgrimage support",
+    "transport": "Private cab + on-route assistance",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 3 nights stay",
+      "🍽️ Breakfast and dinner",
+      "🚘 Road transfers as per route",
+      "🛕 Darshan route coordination",
+      "🧭 On-ground support for key movement points",
+      "📍 Scenic halt planning en route"
+    ],
+    "exclusions": [
+      "🐴 Pony, palki or helicopter tickets",
+      "🍴 Lunch and extra meals",
+      "🎫 VIP darshan / special entry charges",
+      "💸 Personal expenses and donations",
+      "🌧️ Any cost due to weather / road closure"
+    ],
+    "itinerary": [
+      "Day 1: Arrival at base city, briefing and stay.",
+      "Day 2: Begin onward journey towards Kedarnath sector with scenic route support.",
+      "Day 3: Darshan assistance and return movement planning.",
+      "Day 4: Departure after breakfast."
+    ]
+  },
+  {
+    "id": "badrinath-sacred-valley-sojourn",
+    "title": "Badrinath Sacred Valley Sojourn",
+    "location": "Badrinath",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "June",
+    "duration": "4D / 3N",
+    "regularPrice": 20649,
+    "discountedPrice": 17499,
+    "featured": false,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Sacred Circuit",
+    "image": "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A premium Badrinath route through the high Himalayan valley, built for devotees seeking a serene temple visit with smooth transport planning and comfortable overnight halts.",
+    "hotelType": "Comfort stays with scenic valley halts",
+    "transport": "Private cab with temple-route support",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 3 nights stay",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private road transfers",
+      "🛕 Temple visit support",
+      "🌄 Scenic halt coverage",
+      "🧭 Trip assistance throughout"
+    ],
+    "exclusions": [
+      "✈️ / 🚆 Arrival tickets",
+      "🍴 Lunch and snacks",
+      "🎫 Entry / special ritual charges",
+      "💸 Shopping, tips and donations",
+      "🧾 Personal expenses of any nature"
+    ],
+    "itinerary": [
+      "Day 1: Arrival and transfer into the valley sector.",
+      "Day 2: Badrinath darshan and nearby sacred points.",
+      "Day 3: Scenic return route with river confluence stopovers.",
+      "Day 4: Departure after breakfast."
+    ]
+  },
+  {
+    "id": "char-dham-himalayan-pilgrimage",
+    "title": "Char Dham Himalayan Pilgrimage",
+    "location": "Yamunotri • Gangotri • Kedarnath • Badrinath",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "September",
+    "duration": "10D / 9N",
+    "regularPrice": 58999,
+    "discountedPrice": 49999,
+    "featured": true,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": false,
+    "helicopterAvailable": false,
+    "badge": "Holy Circuit",
+    "image": "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A complete Himalayan dharmic journey designed for families and serious devotees who want all four dhams completed with clear logistics, clean stays and premium route support.",
+    "hotelType": "Premium mountain hotels and pilgrim stays",
+    "transport": "Private vehicle throughout",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🏨 9 nights stay",
+      "🍽️ Breakfast and dinner",
+      "🚘 Private vehicle for full circuit",
+      "🛕 Darshan movement support across all dhams",
+      "📞 Route coordination and assistance",
+      "🌄 Scenic halt planning through the Himalayas"
+    ],
+    "exclusions": [
+      "🐴 Pony / palki / helicopter charges",
+      "🍴 Lunch and personal meals",
+      "🎫 VIP darshan, ritual and ticket costs",
+      "💸 Shopping, donations and tips",
+      "🌧️ Cost due to weather delays or landslides"
+    ],
+    "itinerary": [
+      "Day 1: Arrival and briefing in Haridwar / Dehradun sector.",
+      "Day 2-3: Yamunotri route and darshan movement.",
+      "Day 4-5: Gangotri sector pilgrimage.",
+      "Day 6-7: Kedarnath route, stay and darshan support.",
+      "Day 8-9: Badrinath sector with sacred stopovers.",
+      "Day 10: Return and departure."
+    ]
+  },
+  {
+    "id": "char-dham-aerial-darshan-signature",
+    "title": "Char Dham Aerial Darshan Signature",
+    "location": "Char Dham by Helicopter",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "May",
+    "duration": "6D / 5N",
+    "regularPrice": 159299,
+    "discountedPrice": 134999,
+    "featured": false,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": true,
+    "helicopterAvailable": true,
+    "badge": "Helicopter Access",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A high-comfort aerial pilgrimage crafted for travellers who want to cover the Char Dham circuit with faster movement, premium ground coordination and reduced physical strain.",
+    "hotelType": "Premium heli-assisted stays and coordinated ground support",
+    "transport": "Helicopter sectors + VIP ground transfers",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🚁 Helicopter sectors as per schedule",
+      "🏨 Premium stays and meals",
+      "🚘 Ground transfers at operational points",
+      "🛕 Darshan movement support",
+      "📞 Dedicated coordination team",
+      "🧳 Baggage and boarding assistance guidance"
+    ],
+    "exclusions": [
+      "✈️ Travel till reporting point",
+      "🎫 Special rituals, VIP upgrades beyond plan",
+      "💸 Personal shopping / donations / tips",
+      "🧾 Extra hotel nights due to flying conditions",
+      "🌦️ Weather-related operational changes"
+    ],
+    "itinerary": [
+      "Day 1: Arrival, reporting, documentation and overnight stay.",
+      "Day 2: Begin helicopter-assisted dham sectors with managed darshan windows.",
+      "Day 3-5: Continue sequential aerial pilgrimage with premium handling.",
+      "Day 6: Final return sector and departure."
+    ]
+  },
+  {
+    "id": "do-dham-heli-blessings-retreat",
+    "title": "Do Dham Heli Blessings Retreat",
+    "location": "Kedarnath • Badrinath by Helicopter",
+    "region": "Uttarakhand",
+    "category": "Pilgrimage",
+    "month": "June",
+    "duration": "4D / 3N",
+    "regularPrice": 97939,
+    "discountedPrice": 82999,
+    "featured": false,
+    "pilgrimageSpecial": true,
+    "airDepartureFeatured": true,
+    "helicopterAvailable": true,
+    "badge": "Aerial Blessings",
+    "image": "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "A refined helicopter-enabled Do Dham experience for guests seeking Kedarnath and Badrinath darshan with premium coordination, shorter travel time and comfortable stays.",
+    "hotelType": "Premium heli-assisted stay plan",
+    "transport": "Helicopter transfers with curated road support",
+    "whatsappNumber": "7900878908",
+    "inclusions": [
+      "🚁 Helicopter-assisted Do Dham sectors",
+      "🏨 Comfortable premium stays",
+      "🍽️ Meals as per itinerary",
+      "🚘 Ground movement support at key points",
+      "🛕 Darshan coordination",
+      "📞 Trip support throughout"
+    ],
+    "exclusions": [
+      "✈️ Travel till base city",
+      "🎫 Extra rituals / special entries",
+      "💸 Personal expenses and donations",
+      "🧾 Costs due to flying reschedule",
+      "🧳 Porter / pony / palki if required separately"
+    ],
+    "itinerary": [
+      "Day 1: Arrival, reporting formalities and briefing.",
+      "Day 2: Kedarnath aerial movement and darshan support.",
+      "Day 3: Badrinath sector with guided movement.",
+      "Day 4: Return and onward departure."
+    ]
+  }
+]

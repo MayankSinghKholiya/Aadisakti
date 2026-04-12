@@ -1,0 +1,26 @@
+{
+  "name": "aadishakti-clean",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node server.cjs",
+    "start": "concurrently \"npm run server\" \"npm run dev\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^7.6.0",
+    "vite": "^8.0.8"
+  }
+}

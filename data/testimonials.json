@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1775976327986",
+    "name": "Aarav Sharma",
+    "city": "Delhi",
+    "trip": "Kedarnath Premium Yatra",
+    "rating": 5,
+    "text": "Everything felt well-managed and premium. The route support, the stay, and the pacing made the trip genuinely peaceful.",
+    "visible": true,
+    "createdAt": "2026-04-12T06:45:27.986Z",
+    "updatedAt": "2026-04-12T06:45:27.986Z"
+  },
+  {
+    "id": "1775976327986",
+    "name": "Ritika Verma",
+    "city": "Mumbai",
+    "trip": "Kashmir Bliss Retreat",
+    "rating": 5,
+    "text": "This felt like a luxury brand experience rather than a normal travel booking. Smooth, beautiful, and worth it.",
+    "visible": true,
+    "createdAt": "2026-04-12T06:45:27.986Z",
+    "updatedAt": "2026-04-12T06:45:27.986Z"
+  },
+  {
+    "id": "1775976327986",
+    "name": "Manish Saini",
+    "city": "Meerut",
+    "trip": "Char Dham Signature Circuit",
+    "rating": 5,
+    "text": "Usually these trips get hectic, but this one felt calm and polished. Perfect for family travel.",
+    "visible": true,
+    "createdAt": "2026-04-12T06:45:27.986Z",
+    "updatedAt": "2026-04-12T06:45:27.986Z"
+  }
+]
