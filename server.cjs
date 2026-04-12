@@ -559,29 +559,11 @@ app.get(/^(?!\/api|\/uploads).*/, (req, res) => {
 /* ---------------- START SERVER ---------------- */
 
 if (require.main === module) {
-  const port = process.env.PORT || 3001
-  app.listen(port, () => {
+  const port = Number(process.env.PORT || 3001)
+  const host = '0.0.0.0'
+
+  app.listen(port, host, () => {
     console.log(`Aadishakti backend is running on port ${port}`)
-  })
-} else {
-  module.exports = app
-}
-if (require.main === module) {
-  const port = Number(process.env.PORT || 3001)
-  const host = '0.0.0.0'
-
-  app.listen(port, host, () => {
-    console.log(`Aadishakti backend is running on ${host}:${port}`)
-  })
-} else {
-  module.exports = app
-}
-if (require.main === module) {
-  const port = Number(process.env.PORT || 3001)
-  const host = '0.0.0.0'
-
-  app.listen(port, host, () => {
-    console.log(`Aadishakti backend is running on ${host}:${port}`)
   })
 } else {
   module.exports = app
