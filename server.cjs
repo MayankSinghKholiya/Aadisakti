@@ -240,6 +240,38 @@ function defaultSocialPosts() {
     },
   ]
 }
+function defaultCategories() {
+  return [
+    {
+      key: 'Pilgrimage',
+      title: 'Pilgrimage Journeys',
+      text: 'Char Dham, Kedarnath, Haridwar, Rishikesh and temple-led Uttarakhand routes.',
+      image:
+        'https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1400&q=80',
+    },
+    {
+      key: 'Retreat',
+      title: 'Mountain Retreats',
+      text: 'Auli, Chopta, Kanatal, Dhanaulti and quiet Himalayan escapes.',
+      image:
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
+    },
+    {
+      key: 'Heritage',
+      title: 'Kumaon Heritage Trails',
+      text: 'Nainital, Ranikhet, Almora and scenic ridge-town circuits.',
+      image:
+        'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=80',
+    },
+    {
+      key: 'Leisure',
+      title: 'Leisure & Wildlife Escapes',
+      text: 'Lake stays, forest resorts, Mussoorie breaks and family holidays.',
+      image:
+        'https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1400&q=80',
+    },
+  ]
+}
 
 /* ---------------- AUTH ---------------- */
 
@@ -286,7 +318,14 @@ app.get('/api/packages', (req, res) => {
 })
 
 app.get('/api/categories', (req, res) => {
-  res.json(readJSON(categoriesFile))
+  let categories = readJSON(categoriesFile)
+
+  if (!Array.isArray(categories) || categories.length === 0) {
+    categories = defaultCategories()
+    writeJSON(categoriesFile, categories)
+  }
+
+  res.json(categories)
 })
 
 app.get('/api/testimonials', (req, res) => {
@@ -307,6 +346,7 @@ app.get('/api/social-posts', (req, res) => {
 
   res.json(posts.map(normalizeSocialPost))
 })
+
 
 app.get('/api/shared-journeys', (req, res) => {
   const journeys = readJSON(sharedJourneysFile)
