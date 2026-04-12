@@ -576,3 +576,13 @@ if (require.main === module) {
 } else {
   module.exports = app
 }
+if (require.main === module) {
+  const port = Number(process.env.PORT || 3001)
+  const host = '0.0.0.0'
+
+  app.listen(port, host, () => {
+    console.log(`Aadishakti backend is running on ${host}:${port}`)
+  })
+} else {
+  module.exports = app
+}
