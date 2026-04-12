@@ -1178,13 +1178,19 @@ function PackageForm({
         placeholder="Region"
         style={inputStyle}
       />
-      <input
-        value={form.category}
-        onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
-        placeholder="Category"
-        list="category-options"
-        style={inputStyle}
-      />
+      <select
+  value={form.category}
+  onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
+  style={inputStyle}
+  required
+>
+  <option value="">Select Category</option>
+  <option value="Pilgrimage">Pilgrimage</option>
+  <option value="Retreat">Retreat</option>
+  <option value="Heritage">Heritage</option>
+  <option value="Leisure">Leisure</option>
+</select>
+     
       <input
         value={form.month}
         onChange={(e) => setForm((prev) => ({ ...prev, month: e.target.value }))}
