@@ -608,3 +608,6 @@ if (require.main === module) {
 } else {
   module.exports = app
 }
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, service: 'aadishakti', time: new Date().toISOString() })
+})
