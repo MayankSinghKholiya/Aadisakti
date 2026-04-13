@@ -22,7 +22,7 @@ import {
 } from 'lucide-react'
 
 const BRAND = {
-  name: 'Aadishakti',
+  name: 'Aadisakti',
   tagline: 'Spiritual Luxury Travel',
   phone: '+91 7409072272',
   whatsapp: '917900878908',
@@ -492,8 +492,8 @@ function normalizeSharedJourney(raw = {}) {
   return {
     id: raw.id || String(Date.now()),
     title: raw.title || '',
-    handle: raw.handle || '@aadishakti.travel',
-    mention: raw.mention || raw.handle || '@aadishakti.travel',
+    handle: raw.handle || '@aadisakti.travel',
+    mention: raw.mention || raw.handle || '@aadisakti.travel',
     trip: raw.trip || '',
     city: raw.city || '',
     description: raw.description || '',
@@ -556,7 +556,7 @@ function sanitizePhone(value) {
 function buildWhatsAppLink(pkg) {
   const number = sanitizePhone(pkg?.whatsappNumber || BRAND.whatsapp || BRAND.phone)
   const message = encodeURIComponent(
-    `Hello Aadishakti, I want details for ${pkg?.title || 'this package'} (${pkg?.location || ''}).`,
+    `Hello Aadisakti, I want details for ${pkg?.title || 'this package'} (${pkg?.location || ''}).`,
   )
   return `https://wa.me/${number}?text=${message}`
 }
@@ -783,7 +783,7 @@ function Hero({ query, setQuery, onSearch, matches }) {
           </h1>
 
           <p className="hero-text">
-            Aadishakti brings together spiritual travel, premium comfort, soulful destinations,
+            Aadisakti brings together spiritual travel, premium comfort, soulful destinations,
             and immersive storytelling in one cinematic digital experience.
           </p>
           <div className="hero-actions">
@@ -1080,7 +1080,7 @@ function SignatureSection() {
     <section className="section-light pad-section">
       <PremiumVideo sources={VIDEOS.ambient} overlay="dark" />
       <div className="container">
-        <AnimatedEyebrow light>The Aadishakti Signature</AnimatedEyebrow>
+        <AnimatedEyebrow light>The Aadisakti Signature</AnimatedEyebrow>
 
         <div className="media-safe-block">
           <h2 className="display section-title hover-3d-heading media-safe-heading">
@@ -1208,7 +1208,7 @@ function WhyTravelSection() {
     {
       icon: ShieldCheck,
       title: 'Elegant trust',
-      text: 'Aadishakti is built to feel premium, credible, and calm across every touchpoint.',
+      text: 'Aadisakti is built to feel premium, credible, and calm across every touchpoint.',
     },
     {
       icon: HeartHandshake,
@@ -1221,7 +1221,7 @@ function WhyTravelSection() {
     <section className="section-light pad-section">
       <PremiumVideo sources={VIDEOS.featured1} overlay="dark" />
       <div className="container">
-        <AnimatedEyebrow light>Why Travel with Aadishakti</AnimatedEyebrow>
+        <AnimatedEyebrow light>Why Travel with Aadisakti</AnimatedEyebrow>
 
         <div className="media-safe-block">
           <h2 className="display section-title hover-3d-heading media-safe-heading">
@@ -1292,7 +1292,7 @@ function SharedJourneysSection({ items }) {
                   {item.title || item.trip || 'Traveller Story'}
                 </h3>
                 <div className="meta light">
-                  {item.city || 'Aadishakti Traveller'} • {item.handle || '@aadishakti.travel'}
+                  {item.city || 'Aadisakti Traveller'} • {item.handle || '@aadishakti.travel'}
                 </div>
                 <p className="card-text light mt-4">{item.description || 'A shared journey from our travellers.'}</p>
               </div>
@@ -1528,11 +1528,11 @@ function B2BPortalSection() {
           <AnimatedEyebrow>B2B Portal for Agents</AnimatedEyebrow>
 
           <h2 className="display section-title light hover-3d-heading">
-            Apply as an Aadishakti travel partner.
+            Apply as an Aadishati travel partner.
           </h2>
 
           <p className="section-text light">
-            Partner with Aadishakti for seamless coordination, reliable responses, and curated spiritual departures.
+            Partner with Aadishati for seamless coordination, reliable responses, and curated spiritual departures.
           </p>
 
           <div className="grid one mt-8 gap-4">
@@ -1639,7 +1639,7 @@ function CommunitySection() {
           </h2>
 
           <p className="section-text light">
-            Subscribe to Aadishakti updates for destination launches, spiritual departures, seasonal expeditions, and premium offers.
+            Subscribe to Aadishati updates for destination launches, spiritual departures, seasonal expeditions, and premium offers.
           </p>
         </div>
 
@@ -1710,7 +1710,7 @@ function Footer() {
         <div>
           <h4 className="footer-heading">Legal</h4>
           <div className="footer-links">
-            <span>© 2026 Aadishakti Travel. All rights reserved.</span>
+            <span>© 2026 Aadisakti Travel. All rights reserved.</span>
             <span>Registered brand presentation for curated travel experiences.</span>
           </div>
         </div>
@@ -1951,6 +1951,7 @@ function WebsiteApp() {
   const [selectedPackage, setSelectedPackage] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeSearchQuery, setActiveSearchQuery] = useState('')
+  const [compactSearch, setCompactSearch] = useState(false)
 
   useEffect(() => {
     fetch('/api/packages')
@@ -1985,6 +1986,18 @@ function WebsiteApp() {
       )
       .catch(() => setSharedJourneys(BACKUP_SHARED_JOURNEYS))
   }, [])
+  useEffect(() => {
+  const handleScroll = () => {
+    setCompactSearch(window.scrollY > 80)
+  }
+
+  handleScroll()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll)
+  }
+}, [])
 
   const latestTestimonials = useMemo(
     () => getLatestVisibleTestimonials(testimonialsState),
@@ -2016,7 +2029,7 @@ function WebsiteApp() {
     <div className={cn('app-root', 'theme-brand')}>
       <TravelCursor />
       <Navbar />
-      <div className="sticky-search-wrap">
+      <div className={cn('sticky-search-wrap', compactSearch && 'compact-search')}>
   <div className="container">
     <SearchPackagesBar
       query={searchQuery}
