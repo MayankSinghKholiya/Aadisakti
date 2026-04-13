@@ -398,7 +398,6 @@ const navItems = [
   { id: 'air-departures', label: 'Air Departures' },
   { id: 'categories', label: 'Categories' },
   { id: 'b2b', label: 'B2B' },
-  { id: 'community', label: 'Community' },
 ]
 
 const DEFAULT_GALLERY_BANK = {
@@ -776,7 +775,7 @@ function Hero({ query, setQuery, onSearch, matches }) {
         <div className="hero-copy">
           <AnimatedEyebrow>immersive spiritual travel</AnimatedEyebrow>
 
-          <SearchPackagesBar query={query} setQuery={setQuery} onSearch={onSearch} matches={matches} />
+         
 
           <h1 className="display hero-title hover-3d-heading">
             Journeys crafted for
@@ -787,15 +786,11 @@ function Hero({ query, setQuery, onSearch, matches }) {
             Aadishakti brings together spiritual travel, premium comfort, soulful destinations,
             and immersive storytelling in one cinematic digital experience.
           </p>
-
           <div className="hero-actions">
-            <a href="#featured" className="cta-btn white hover-btn-pop">
-              Explore Featured
-            </a>
-            <a href="#community" className="cta-btn ghost hover-btn-pop">
-              Join the Community
-            </a>
-          </div>
+  <a href="#featured" className="cta-btn white hover-btn-pop">
+    Explore Featured
+  </a>
+</div>
         </div>
       </div>
     </section>
@@ -1698,7 +1693,6 @@ function Footer() {
             <a href="#featured">Featured</a>
             <a href="#air-departures">Air Departures</a>
             <a href="#categories">Categories</a>
-            <a href="#community">Community</a>
           </div>
         </div>
 
@@ -2022,6 +2016,16 @@ function WebsiteApp() {
     <div className={cn('app-root', 'theme-brand')}>
       <TravelCursor />
       <Navbar />
+      <div className="sticky-search-wrap">
+  <div className="container">
+    <SearchPackagesBar
+      query={searchQuery}
+      setQuery={setSearchQuery}
+      onSearch={handleSearch}
+      matches={liveMatches}
+    />
+  </div>
+</div>
 
       <main>
         <Hero
@@ -2052,7 +2056,6 @@ function WebsiteApp() {
         <SpiritualEchoesSection testimonials={latestTestimonials} />
         <ReviewFormSection onNewReview={handleNewReview} />
         <B2BPortalSection />
-        <CommunitySection />
       </main>
 
       <Footer />
