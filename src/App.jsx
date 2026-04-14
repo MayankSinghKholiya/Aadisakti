@@ -1468,7 +1468,34 @@ function WhyTravelSection() {
     </section>
   )
 }
+function SharedJourneyDescription({ text }) {
+  const [expanded, setExpanded] = useState(false)
+  const content = text || 'A shared journey from our travellers.'
+  const showToggle = content.trim().length > 90
 
+  return (
+    <div className="shared-journey-description-wrap">
+      <p
+        className={cn(
+          'card-text light mt-4 shared-journey-description',
+          !expanded && 'shared-journey-description-collapsed',
+        )}
+      >
+        {content}
+      </p>
+
+      {showToggle ? (
+        <button
+          type="button"
+          className="shared-journey-more-btn"
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          {expanded ? 'Less' : 'More'}
+        </button>
+      ) : null}
+    </div>
+  )
+}
 function SharedJourneysSection({ items }) {
   if (!items.length) return null
 
@@ -1513,7 +1540,7 @@ function SharedJourneysSection({ items }) {
                 <div className="meta light">
                   {item.city || 'Aadisakti Traveller'} • {item.handle || '@aadisakti.travel'}
                 </div>
-                <p className="card-text light mt-4">{item.description || 'A shared journey from our travellers.'}</p>
+                <SharedJourneyDescription text={item.description} />
               </div>
             </motion.article>
           ))}
