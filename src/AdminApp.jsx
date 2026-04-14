@@ -27,8 +27,8 @@ const emptyPackageForm = {
 
 const emptyJourneyForm = {
   title: '',
-  handle: '@aadishakti.travel',
-  mention: '@aadishakti.travel',
+  handle: '@aadisakti.travel',
+  mention: '@aadisakti.travel',
   trip: '',
   city: '',
   description: '',
@@ -38,8 +38,8 @@ const emptyJourneyForm = {
 
 const emptySocialForm = {
   title: '',
-  handle: '@aadishakti.travel',
-  mention: '@aadishakti.travel',
+  handle: '@aadisakti.travel',
+  mention: '@aadisakti.travel',
   postUrl: '',
   image: '',
   description: '',
@@ -532,8 +532,8 @@ export default function AdminApp() {
     setEditingSocialId(post.id)
     setEditSocialForm({
       title: post.title || '',
-      handle: post.handle || '@aadishakti.travel',
-      mention: post.mention || post.handle || '@aadishakti.travel',
+      handle: post.handle || '@aadisakti.travel',
+      mention: post.mention || post.handle || '@aadisakti.travel',
       postUrl: post.postUrl || '',
       image: post.image || '',
       description: post.description || '',

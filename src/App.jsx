@@ -445,6 +445,130 @@ function toArray(value) {
   }
   return []
 }
+function normalizeCategoryValue(value = '') {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function normalizeCategory(raw = {}) {
+  const keySource = raw.key || raw.slug || raw.id || raw.title || ''
+  const slug = normalizeCategoryValue(raw.slug || raw.key || raw.id || raw.title || '')
+  const key = raw.key || raw.slug || raw.id || raw.title || slug || 'category'
+  const fallbackImage =
+    DEFAULT_GALLERY_BANK[raw.key] ||
+    DEFAULT_GALLERY_BANK[raw.title] ||
+    DEFAULT_GALLERY_BANK[raw.slug] ||
+    DEFAULT_GALLERY_BANK[raw.id]
+
+  return {
+    ...raw,
+    id: raw.id || slug || String(Date.now()),
+    key,
+    slug,
+    title: raw.title || raw.key || raw.slug || raw.id || 'Travel Category',
+    text: raw.text || raw.description || '',
+    image: raw.image || (Array.isArray(fallbackImage) ? fallbackImage[0] : fallbackImage) || '',
+    normalizedValue: normalizeCategoryValue(keySource),
+  }
+}
+
+const CATEGORY_ALIAS_MAP = {
+  pilgrimage: ['pilgrimage', 'pilgrimage-journeys', 'char-dham', 'kedarnath', 'badrinath', 'haridwar', 'rishikesh', 'temple', 'spiritual'],
+  retreat: ['retreat', 'mountain-retreats', 'auli', 'chopta', 'kanatal', 'dhanaulti', 'meadows', 'snow', 'snowline'],
+  heritage: ['heritage', 'heritage-trails', 'kumaon', 'almora', 'ranikhet', 'nainital', 'culture', 'ridge'],
+  leisure: ['leisure', 'wildlife', 'family', 'holiday', 'lake', 'forest', 'escape', 'mussoorie', 'corbett'],
+}
+
+function getCategoryMatchValues(category) {
+  if (!category) return []
+
+  const base = [
+    category.key,
+    category.slug,
+    category.id,
+    category.title,
+    category.text,
+    category.normalizedValue,
+  ]
+    .map(normalizeCategoryValue)
+    .filter(Boolean)
+
+  const aliasSeed = Array.from(
+    new Set(
+      base.flatMap((value) => {
+        const directAliases = CATEGORY_ALIAS_MAP[value] || []
+        return [value, ...directAliases]
+      }),
+    ),
+  )
+
+  return aliasSeed
+}
+
+function getPackageMatchValues(pkg) {
+  const normalized = normalizePackage(pkg)
+  const base = [normalized.category, normalized.type, normalized.segment]
+    .map(normalizeCategoryValue)
+    .filter(Boolean)
+
+  if (normalized.pilgrimageSpecial) {
+    base.push('pilgrimage')
+  }
+
+  if (normalized.airDepartureFeatured || normalized.helicopterAvailable) {
+    base.push('air', 'air-departure', 'helicopter')
+  }
+
+  return Array.from(new Set(base))
+}
+
+function packageMatchesCategory(pkg, category) {
+  const categoryValues = getCategoryMatchValues(category)
+  if (!categoryValues.length) return false
+
+  const packageValues = getPackageMatchValues(pkg)
+  return packageValues.some((value) =>
+    categoryValues.some(
+      (target) =>
+        value === target ||
+        value.includes(target) ||
+        target.includes(value),
+    ),
+  )
+}
+
+function mergePackagesWithSeeds(primary = [], fallback = []) {
+  const merged = new Map()
+
+  fallback.map(normalizePackage).forEach((pkg) => {
+    merged.set(pkg.id, pkg)
+  })
+
+  primary.map(normalizePackage).forEach((pkg) => {
+    merged.set(pkg.id, pkg)
+  })
+
+  return Array.from(merged.values())
+}
+
+function mergeCategoriesWithSeeds(primary = [], fallback = []) {
+  const merged = new Map()
+
+  fallback.map(normalizeCategory).forEach((category) => {
+    merged.set(category.slug || category.id || category.key, category)
+  })
+
+  primary.map(normalizeCategory).forEach((category) => {
+    merged.set(category.slug || category.id || category.key, category)
+  })
+
+  return Array.from(merged.values())
+}
+
 function normalizePackage(raw = {}) {
   const rawGallery = Array.isArray(raw.galleryImages)
     ? raw.galleryImages
@@ -931,7 +1055,7 @@ function UttarakhandSacredCircuitSection({ items, onSelect }) {
       <div className="container">
         <AnimatedEyebrow>Char Dham </AnimatedEyebrow>
         <p className="section-text light">
-          Kedarnath, Badrinath, Puri, Gangotri  pilgrimage collection.
+          Kedarnath, Badrinath, Gangotri, Yamunotri and More...
         </p>
 
         <div className="grid three package-grid-responsive mt-10">
@@ -1033,10 +1157,10 @@ function FeaturedPackages({ items, onSelect }) {
           <div>
             <AnimatedEyebrow>Featured Packages</AnimatedEyebrow>
             <h2 className="display section-title light hover-3d-heading">
-              Our highlighted Uttarakhand escapes
+              Our highlighted Uttarakhand Regions
             </h2>
             <p className="section-text light">
-              Curated Uttarakhand circuits with premium pacing, strong visuals and polished route planning.
+              Curated Uttarakhand Pilgirmage Circuit.
             </p>
           </div>
         </div>
@@ -1144,7 +1268,7 @@ function ExploreCategoriesSection({ categories, onOpenCategory }) {
         </h2>
 
         <p className="section-text light">
-          Click any category and its packages will open in a focused popup without leaving the homepage.
+          Click any category you are interested in.
         </p>
 
         <div className="grid four mt-10">
@@ -1155,7 +1279,7 @@ function ExploreCategoriesSection({ categories, onOpenCategory }) {
               whileHover={{ y: -8, scale: 1.015 }}
               whileTap={{ scale: 0.985 }}
               transition={HOVER_TRANSITION}
-              onClick={() => onOpenCategory?.(item.key)}
+              onClick={() => onOpenCategory?.(item)}
               className="category-card hover-lift-soft"
             >
               <div className="card-image-wrap mid hover-image-zoom">
@@ -1178,24 +1302,31 @@ function ExploreCategoriesSection({ categories, onOpenCategory }) {
 }
 
 function CategoryPackagesOverlay({ category, packages, onSelect, onClose }) {
-  const [activeImage, setActiveImage] = useState(0)
+  const scrollRef = React.useRef(null)
 
   useEffect(() => {
     const previousBodyOverflow = document.body.style.overflow
     const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyTouchAction = document.body.style.touchAction
 
     document.body.style.overflow = 'hidden'
     document.documentElement.style.overflow = 'hidden'
+    document.body.style.touchAction = 'none'
+    document.body.classList.add('category-popup-open')
+    document.documentElement.classList.add('category-popup-open')
 
     return () => {
       document.body.style.overflow = previousBodyOverflow
       document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.touchAction = previousBodyTouchAction
+      document.body.classList.remove('category-popup-open')
+      document.documentElement.classList.remove('category-popup-open')
     }
   }, [])
 
   useEffect(() => {
-    setActiveImage(0)
-  }, [category?.key])
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [category?.slug, category?.key, category?.id])
 
   if (!category) return null
 
@@ -1215,52 +1346,69 @@ function CategoryPackagesOverlay({ category, packages, onSelect, onClose }) {
           exit={{ opacity: 0, y: 18, scale: 0.98 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="category-modal-hero">
-            <img
-              src={category.image}
-              alt={category.title}
-              className="category-modal-hero-image"
-            />
-            <div className="category-modal-overlay" />
-            <div className="category-modal-copy">
-              <div className="badge">Selected Category</div>
-              <h3 className="display section-subtitle light hover-3d-heading mt-4">
-                {category.title}
-              </h3>
-              <p className="card-text light mt-3">{category.text}</p>
+          <div className="category-modal-toolbar">
+            <div>
+              <div className="mini-label">Selected Category</div>
+              <div className="category-modal-toolbar-text">
+                {packages.length} package{packages.length !== 1 ? 's' : ''} available
+              </div>
             </div>
-            <button onClick={onClose} className="modal-close category-modal-close">
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="modal-close category-modal-close category-modal-close-pinned"
+              aria-label="Close category popup"
+            >
               <X className="icon-sm" />
             </button>
           </div>
 
-          <div className="category-modal-body">
-            <div className="section-head between gap-4">
-              <div>
-                <div className="mini-label">Matching Packages</div>
-                <p className="card-text light mt-2">
-                  Cross button dabate hi aap wahi homepage scroll position par wapas aa jaoge.
-                </p>
-              </div>
-
-              <div className="count-pill">
-                {packages.length} package{packages.length !== 1 ? 's' : ''}
+          <div ref={scrollRef} className="category-modal-scroll">
+            <div className="category-modal-hero">
+              <img
+                src={category.image}
+                alt={category.title}
+                className="category-modal-hero-image"
+              />
+              <div className="category-modal-overlay" />
+              <div className="category-modal-copy">
+                <div className="badge">Click any package for details</div>
+                <h3 className="display section-subtitle light hover-3d-heading mt-4">
+                  {category.title}
+                </h3>
+                <p className="card-text light mt-3">{category.text}</p>
               </div>
             </div>
 
-            {packages.length === 0 ? (
-              <div className="panel dark-panel mt-8">
-                <p className="card-text light">
-                  Is category me abhi koi package nahi mila. Admin se isme packages add kiye ja sakte hain.
-                </p>
+            <div className="category-modal-body">
+              <div className="section-head between gap-4 category-modal-section-head">
+                <div>
+                  <div className="mini-label">Matching Packages</div>
+                  <p className="card-text light mt-2">
+                    You can get detail of packages below just click on "View Details" or "Whatsapp".
+                  </p>
+                </div>
+
+                <div className="count-pill">
+                  {packages.length} package{packages.length !== 1 ? 's' : ''}
+                </div>
               </div>
-            ) : (
-              <div className="grid three package-grid-responsive mt-8">
-                {packages.map((pkg) => (
-                  <PackageCard key={pkg.id} pkg={pkg} onSelect={onSelect} dark compact />
-                ))}
-              </div>
-            )}
+
+              {packages.length === 0 ? (
+                <div className="panel dark-panel mt-8">
+                  <p className="card-text light">
+                    Is category me abhi package available nahi mila. Admin se is category ke packages add kiye ja sakte hain.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid three package-grid-responsive mt-8 category-package-grid">
+                  {packages.map((pkg) => (
+                    <PackageCard key={pkg.id} pkg={pkg} onSelect={onSelect} dark compact />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </motion.div>
       </motion.div>
@@ -1363,7 +1511,7 @@ function SharedJourneysSection({ items }) {
                   {item.title || item.trip || 'Traveller Story'}
                 </h3>
                 <div className="meta light">
-                  {item.city || 'Aadisakti Traveller'} • {item.handle || '@aadishakti.travel'}
+                  {item.city || 'Aadisakti Traveller'} • {item.handle || '@aadisakti.travel'}
                 </div>
                 <p className="card-text light mt-4">{item.description || 'A shared journey from our travellers.'}</p>
               </div>
@@ -1599,11 +1747,11 @@ function B2BPortalSection() {
           <AnimatedEyebrow>B2B Portal for Agents</AnimatedEyebrow>
 
           <h2 className="display section-title light hover-3d-heading">
-            Apply as an Aadishati travel partner.
+            Apply as an Aadisakti travel partner.
           </h2>
 
           <p className="section-text light">
-            Partner with Aadishati for seamless coordination, reliable responses, and curated spiritual departures.
+            Partner with Aadisakti for seamless coordination, reliable responses, and curated spiritual departures.
           </p>
 
           <div className="grid one mt-8 gap-4">
@@ -2046,18 +2194,26 @@ function WebsiteApp() {
   const [activeSearchQuery, setActiveSearchQuery] = useState('')
   const [compactSearch, setCompactSearch] = useState(false)
   const [currentRoute, setCurrentRoute] = useState(getWebsiteRoute())
-  const [activeCategoryKey, setActiveCategoryKey] = useState('')
+  const [activeCategory, setActiveCategory] = useState(null)
 
   useEffect(() => {
     fetch('/api/packages')
       .then((res) => res.json())
-      .then((data) => setPackages(Array.isArray(data) ? data.map(normalizePackage) : SEED_PACKAGES))
+      .then((data) =>
+        setPackages(
+          Array.isArray(data) ? data.map(normalizePackage) : SEED_PACKAGES.map(normalizePackage),
+        ),
+      )
       .catch(() => setPackages(SEED_PACKAGES.map(normalizePackage)))
 
     fetch('/api/categories')
       .then((res) => res.json())
-      .then((data) => setCategories(Array.isArray(data) ? data : SEED_CATEGORIES))
-      .catch(() => setCategories(SEED_CATEGORIES))
+      .then((data) =>
+        setCategories(
+          mergeCategoriesWithSeeds(Array.isArray(data) ? data : [], SEED_CATEGORIES),
+        ),
+      )
+      .catch(() => setCategories(mergeCategoriesWithSeeds([], SEED_CATEGORIES)))
 
     fetch('/api/testimonials')
       .then((res) => res.json())
@@ -2118,15 +2274,31 @@ function WebsiteApp() {
     [packagesState, activeSearchQuery],
   )
 
-  const activeCategory = useMemo(
-    () => categoriesState.find((item) => item.key === activeCategoryKey) || null,
-    [categoriesState, activeCategoryKey],
+  const overlayPackagesSource = useMemo(
+    () => mergePackagesWithSeeds(packagesState, SEED_PACKAGES),
+    [packagesState],
   )
 
-  const activeCategoryPackages = useMemo(() => {
-    if (!activeCategoryKey) return []
-    return packagesState.filter((pkg) => pkg.category === activeCategoryKey)
-  }, [packagesState, activeCategoryKey])
+  
+const activeCategoryPackages = useMemo(() => {
+    if (!activeCategory) return []
+
+    const categoryValues = getCategoryMatchValues(activeCategory)
+    const primaryCategoryKey = normalizeCategoryValue(activeCategory.key || activeCategory.slug || activeCategory.id)
+
+    const exactMatches = overlayPackagesSource.filter(
+      (pkg) => normalizeCategoryValue(pkg.category) === primaryCategoryKey,
+    )
+
+    if (exactMatches.length) {
+      return exactMatches
+    }
+
+    return overlayPackagesSource.filter((pkg) => {
+      const packageValues = getPackageMatchValues(pkg)
+      return packageValues.some((value) => categoryValues.includes(value))
+    })
+  }, [overlayPackagesSource, activeCategory])
 
   const handleSearch = () => {
     setActiveSearchQuery(searchQuery)
@@ -2172,12 +2344,14 @@ function WebsiteApp() {
     scrollToId(target)
   }
 
-  const handleOpenCategory = (categoryKey) => {
-    setActiveCategoryKey(categoryKey)
+  const handleOpenCategory = (category) => {
+    if (!category) return
+    const normalized = normalizeCategory(category)
+    setActiveCategory(normalized)
   }
 
   const handleCloseCategory = () => {
-    setActiveCategoryKey('')
+    setActiveCategory(null)
   }
 
   const isHomeRoute = currentRoute === 'home'
@@ -2243,8 +2417,8 @@ function WebsiteApp() {
       ) : currentRoute === 'b2b' ? (
         <RoutePageShell
           eyebrow="B2B Portal"
-          title="Aadishakti travel partner desk"
-          text="Yeh section ab homepage se alag rakha gaya hai. Navbar se B2B click karte hi dedicated partner page khulega."
+          title="Aadisakti travel partner desk"
+          text="Hey Business Partner, thanks for choosing us. Fill the details below in the form, and we will get back to you shortly."
           onBack={() => handleNavigate('home')}
         >
           <B2BPortalSection />
