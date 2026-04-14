@@ -54,6 +54,13 @@ const emptyReviewForm = {
   visible: true,
 }
 
+const emptyCategoryForm = {
+  key: '',
+  title: '',
+  text: '',
+  image: '',
+}
+
 export default function AdminApp() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -69,6 +76,7 @@ export default function AdminApp() {
   const [editingSocialId, setEditingSocialId] = useState(null)
   const [editingJourneyId, setEditingJourneyId] = useState(null)
   const [editingReviewId, setEditingReviewId] = useState(null)
+  const [editingCategoryId, setEditingCategoryId] = useState(null)
 
   const [newPackageForm, setNewPackageForm] = useState(emptyPackageForm)
   const [editPackageForm, setEditPackageForm] = useState(emptyPackageForm)
@@ -78,11 +86,14 @@ export default function AdminApp() {
   const [editJourneyForm, setEditJourneyForm] = useState(emptyJourneyForm)
   const [newReviewForm, setNewReviewForm] = useState(emptyReviewForm)
   const [editReviewForm, setEditReviewForm] = useState(emptyReviewForm)
+  const [newCategoryForm, setNewCategoryForm] = useState(emptyCategoryForm)
+  const [editCategoryForm, setEditCategoryForm] = useState(emptyCategoryForm)
 
   const [showNewPackageForm, setShowNewPackageForm] = useState(false)
   const [showNewSocialForm, setShowNewSocialForm] = useState(false)
   const [showNewJourneyForm, setShowNewJourneyForm] = useState(false)
   const [showNewReviewForm, setShowNewReviewForm] = useState(false)
+  const [showNewCategoryForm, setShowNewCategoryForm] = useState(false)
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
 
@@ -181,6 +192,7 @@ export default function AdminApp() {
     setEditingSocialId(null)
     setEditingJourneyId(null)
     setEditingReviewId(null)
+    setEditingCategoryId(null)
   }
 
   function toArray(value) {
@@ -231,6 +243,24 @@ export default function AdminApp() {
       rating: Number(item.rating || 5),
       text: item.text || '',
       visible: item.visible !== false,
+    }
+  }
+
+  function normalizeCategoryToForm(item = {}) {
+    return {
+      key: item.key || '',
+      title: item.title || '',
+      text: item.text || '',
+      image: item.image || '',
+    }
+  }
+
+  function buildCategoryPayload(form) {
+    return {
+      key: form.key.trim(),
+      title: form.title.trim(),
+      text: form.text.trim(),
+      image: form.image.trim(),
     }
   }
 
@@ -757,6 +787,95 @@ export default function AdminApp() {
     }
   }
 
+  function startEditCategory(item) {
+    setEditingCategoryId(item.id)
+    setEditCategoryForm(normalizeCategoryToForm(item))
+  }
+
+  function cancelEditCategory() {
+    setEditingCategoryId(null)
+    setEditCategoryForm(emptyCategoryForm)
+  }
+
+  async function addCategory(e) {
+    e.preventDefault()
+    try {
+      const res = await fetch('/api/categories', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(buildCategoryPayload(newCategoryForm)),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || 'Category add failed')
+        return
+      }
+
+      setCategories((prev) => [data, ...prev])
+      setNewCategoryForm(emptyCategoryForm)
+      setShowNewCategoryForm(false)
+      alert('Category added')
+    } catch (error) {
+      console.error(error)
+      alert('Category add failed')
+    }
+  }
+
+  async function saveCategory(id) {
+    try {
+      const res = await fetch(`/api/categories/${id}`, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify(buildCategoryPayload(editCategoryForm)),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || 'Category update failed')
+        return
+      }
+
+      setCategories((prev) => prev.map((item) => (String(item.id) === String(id) ? data : item)))
+      cancelEditCategory()
+      alert('Category updated')
+    } catch (error) {
+      console.error(error)
+      alert('Category update failed')
+    }
+  }
+
+  async function deleteCategory(id) {
+    if (!window.confirm('Is category ko remove karna hai?')) return
+
+    try {
+      const res = await fetch(`/api/categories/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders(),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || 'Category delete failed')
+        return
+      }
+
+      setCategories((prev) => prev.filter((item) => String(item.id) !== String(id)))
+      if (editingCategoryId === id) cancelEditCategory()
+      alert('Category removed')
+    } catch (error) {
+      console.error(error)
+      alert('Category delete failed')
+    }
+  }
+
+  async function handleCategoryCoverUpload(file, setter) {
+    if (!file) return
+    const url = await uploadFile(file)
+    if (!url) return
+    setter((prev) => ({ ...prev, image: url }))
+  }
+
   if (!token) {
     return (
       <div style={loginPageStyle}>
@@ -802,7 +921,7 @@ export default function AdminApp() {
             <div style={{ opacity: 0.75, marginTop: '6px' }}>
               {loading
                 ? 'Loading...'
-                : 'Packages, reviews, uploads, gallery images, search data and shared journeys.'}
+                : 'Packages, categories, reviews, uploads, gallery images, popup category covers and shared journeys.'}
             </div>
           </div>
 
@@ -812,6 +931,9 @@ export default function AdminApp() {
             </button>
             <button onClick={() => setShowNewReviewForm((prev) => !prev)} style={secondaryBtn}>
               {showNewReviewForm ? 'Close Review Form' : 'Add Review'}
+            </button>
+            <button onClick={() => setShowNewCategoryForm((prev) => !prev)} style={secondaryBtn}>
+              {showNewCategoryForm ? 'Close Category Form' : 'Manage Categories'}
             </button>
             <button onClick={() => setShowNewSocialForm((prev) => !prev)} style={secondaryBtn}>
               {showNewSocialForm ? 'Close Instagram Form' : 'Add Instagram Post'}
@@ -833,6 +955,10 @@ export default function AdminApp() {
           <div style={statCardStyle}>
             <div style={statLabelStyle}>Featured</div>
             <div style={statValueStyle}>{packages.filter((item) => item.featured).length}</div>
+          </div>
+          <div style={statCardStyle}>
+            <div style={statLabelStyle}>Categories</div>
+            <div style={statValueStyle}>{categories.length}</div>
           </div>
           <div style={statCardStyle}>
             <div style={statLabelStyle}>Reviews</div>
@@ -893,6 +1019,26 @@ export default function AdminApp() {
           </div>
         )}
 
+        {showNewCategoryForm && (
+          <div style={{ ...cardStyle, marginTop: '18px' }}>
+            <h2 style={{ marginTop: 0 }}>Category Cards / Background Images</h2>
+            <p style={{ ...mutedText, marginBottom: '14px' }}>
+              Explore by Category ke background photos aur copy yahin se control hongi.
+            </p>
+            <CategoryForm
+              form={newCategoryForm}
+              setForm={setNewCategoryForm}
+              onSubmit={addCategory}
+              submitLabel="Save Category"
+              onCancel={() => {
+                setNewCategoryForm(emptyCategoryForm)
+                setShowNewCategoryForm(false)
+              }}
+              onCoverUpload={(file) => handleCategoryCoverUpload(file, setNewCategoryForm)}
+            />
+          </div>
+        )}
+
         {showNewSocialForm && (
           <div style={{ ...cardStyle, marginTop: '18px' }}>
             <h2 style={{ marginTop: 0 }}>Add Instagram Story / Post Card</h2>
@@ -927,6 +1073,55 @@ export default function AdminApp() {
             />
           </div>
         )}
+
+        <section style={{ marginTop: '24px' }}>
+          <h2 style={sectionHeadingStyle}>Explore Categories</h2>
+          <div style={{ display: 'grid', gap: '14px' }}>
+            {categories.map((item) => (
+              <div key={item.id || item.key} style={cardStyle}>
+                {editingCategoryId === item.id ? (
+                  <>
+                    <h3 style={{ marginTop: 0 }}>Edit Category</h3>
+                    <CategoryForm
+                      form={editCategoryForm}
+                      setForm={setEditCategoryForm}
+                      onSubmit={(e) => {
+                        e.preventDefault()
+                        saveCategory(item.id)
+                      }}
+                      submitLabel="Save Category"
+                      onCancel={cancelEditCategory}
+                      onCoverUpload={(file) => handleCategoryCoverUpload(file, setEditCategoryForm)}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <div style={packageRowStyle}>
+                      <div style={{ flex: 1, minWidth: '240px' }}>
+                        <h3 style={{ margin: '0 0 8px 0' }}>{item.title || item.key}</h3>
+                        <p style={metaText}>
+                          Key: {item.key} • Homepage popup background image editable
+                        </p>
+                        <p style={mutedText}>{item.text || 'No category text'}</p>
+                      </div>
+
+                      {item.image ? <img src={item.image} alt={item.title || item.key} style={previewImageStyle} /> : null}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '10px', marginTop: '14px', flexWrap: 'wrap' }}>
+                      <button onClick={() => startEditCategory(item)} style={secondaryBtn}>
+                        Edit
+                      </button>
+                      <button onClick={() => deleteCategory(item.id)} style={dangerBtn}>
+                        Remove
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section style={{ marginTop: '24px' }}>
           <h2 style={sectionHeadingStyle}>Packages</h2>
@@ -1146,6 +1341,70 @@ export default function AdminApp() {
   )
 }
 
+function CategoryForm({
+  form,
+  setForm,
+  onSubmit,
+  submitLabel,
+  onCancel,
+  onCoverUpload,
+}) {
+  return (
+    <form onSubmit={onSubmit} style={formGridStyle}>
+      <input
+        value={form.key}
+        onChange={(e) => setForm((prev) => ({ ...prev, key: e.target.value }))}
+        placeholder="Category Key (example: Pilgrimage)"
+        style={inputStyle}
+        required
+      />
+      <input
+        value={form.title}
+        onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
+        placeholder="Category Title"
+        style={inputStyle}
+        required
+      />
+      <textarea
+        value={form.text}
+        onChange={(e) => setForm((prev) => ({ ...prev, text: e.target.value }))}
+        placeholder="Short category description"
+        style={textareaStyle}
+      />
+      <input
+        value={form.image}
+        onChange={(e) => setForm((prev) => ({ ...prev, image: e.target.value }))}
+        placeholder="Background Image URL"
+        style={inputStyle}
+      />
+      <label style={fieldLabelStyle}>
+        Upload Background Image
+        <input
+          type="file"
+          accept="image/*"
+          style={fileInputStyle}
+          onChange={(e) => onCoverUpload?.(e.target.files?.[0])}
+        />
+      </label>
+
+      {form.image ? (
+        <div style={previewWrapStyle}>
+          <img src={form.image} alt={form.title || 'Category preview'} style={previewLargeStyle} />
+        </div>
+      ) : null}
+
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        <button type="submit" style={primaryBtn}>
+          {submitLabel}
+        </button>
+        <button type="button" style={mutedBtn} onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
+    </form>
+  )
+}
+
 function PackageForm({
   form,
   setForm,
@@ -1178,18 +1437,14 @@ function PackageForm({
         placeholder="Region"
         style={inputStyle}
       />
-      <select
-  value={form.category}
-  onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
-  style={inputStyle}
-  required
->
-  <option value="">Select Category</option>
-  <option value="Pilgrimage">Pilgrimage</option>
-  <option value="Retreat">Retreat</option>
-  <option value="Heritage">Heritage</option>
-  <option value="Leisure">Leisure</option>
-</select>
+      <input
+        value={form.category}
+        onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
+        placeholder="Category"
+        list="category-options"
+        style={inputStyle}
+        required
+      />
      
       <input
         value={form.month}
@@ -1633,7 +1888,7 @@ const statsGridStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
   gap: '12px',
-  marginBottom: '20px',
+  marginBottom: '24px',
 }
 
 const statCardStyle = {
@@ -1661,6 +1916,7 @@ const statValueStyle = {
 const sectionHeadingStyle = {
   margin: '0 0 14px 0',
   fontSize: '1.2rem',
+  letterSpacing: '0.01em',
 }
 
 const topBarStyle = {
@@ -1669,8 +1925,12 @@ const topBarStyle = {
   alignItems: 'center',
   gap: '14px',
   flexWrap: 'wrap',
-  marginBottom: '20px',
-  padding: '0 2px',
+  marginBottom: '24px',
+  padding: '18px 20px',
+  borderRadius: '22px',
+  border: '1px solid rgba(250, 204, 21, 0.14)',
+  background: 'linear-gradient(180deg, rgba(18,18,18,0.98), rgba(9,9,9,0.98))',
+  boxShadow: '0 18px 50px rgba(0,0,0,0.2)',
 }
 
 const cardStyle = {

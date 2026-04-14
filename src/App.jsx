@@ -592,6 +592,22 @@ function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
+function getWebsiteRoute() {
+  if (typeof window === 'undefined') return 'home'
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  if (path === '/b2b') return 'b2b'
+  if (path === '/air-departures') return 'air-departures'
+  return 'home'
+}
+
+function updateWebsiteRoute(route, { replace = false } = {}) {
+  if (typeof window === 'undefined') return
+  const targetPath =
+    route === 'b2b' ? '/b2b' : route === 'air-departures' ? '/air-departures' : '/'
+  const method = replace ? 'replaceState' : 'pushState'
+  window.history[method]({}, '', targetPath)
+}
+
 function PremiumVideo({ sources, overlay = 'dark', className = '' }) {
   const [index, setIndex] = useState(0)
   const current = sources[index] || sources[0]
@@ -662,11 +678,16 @@ function TravelCursor() {
   return null
 }
 
-function Navbar() {
+function Navbar({ onNavigate, currentRoute = 'home' }) {
   const [open, setOpen] = useState(false)
 
-  const go = (id) => {
-    scrollToId(id)
+  const handleNavClick = (itemId) => {
+    onNavigate?.(itemId)
+    setOpen(false)
+  }
+
+  const goHome = () => {
+    onNavigate?.('home')
     setOpen(false)
   }
 
@@ -674,10 +695,7 @@ function Navbar() {
     <>
       <motion.header initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="nav-shell">
         <div className="nav-bar">
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="brand"
-          >
+          <button onClick={goHome} className="brand">
             <div className="brand-badge brand-badge-logo">
               <img src={BRAND.logo} alt={`${BRAND.name} logo`} className="brand-logo" />
             </div>
@@ -691,8 +709,13 @@ function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => go(item.id)}
-                className="nav-link hover-nav-link"
+                onClick={() => handleNavClick(item.id)}
+                className={cn(
+                  'nav-link',
+                  'hover-nav-link',
+                  (currentRoute === item.id || (currentRoute === 'home' && item.id === 'featured' && false)) &&
+                    'nav-link-active',
+                )}
               >
                 {item.label}
               </button>
@@ -723,8 +746,11 @@ function Navbar() {
             exit={{ opacity: 0, y: -10 }}
             className="mobile-menu mobile-only"
           >
+            <button onClick={goHome} className="mobile-link">
+              Home
+            </button>
             {navItems.map((item) => (
-              <button key={item.id} onClick={() => go(item.id)} className="mobile-link">
+              <button key={item.id} onClick={() => handleNavClick(item.id)} className="mobile-link">
                 {item.label}
               </button>
             ))}
@@ -828,7 +854,7 @@ function PackageCard({ pkg, onSelect, dark = true, compact = false }) {
           <MapPin className="icon-xs" /> {pkg.location} • {pkg.duration}
         </div>
 
-        <p className={cn('card-text mt-4', dark ? 'light' : 'dark')}>{pkg.description}</p>
+        <p className={cn('card-text mt-4 package-description-desktop-hide', dark ? 'light' : 'dark')}>{pkg.description}</p>
 
         <div className="mt-5">
           <PriceTag
@@ -903,12 +929,9 @@ function UttarakhandSacredCircuitSection({ items, onSelect }) {
     <section id="pilgrimage-special" className="section-dark pad-section">
       <PremiumVideo sources={VIDEOS.dhaam} overlay="dark" />
       <div className="container">
-        <AnimatedEyebrow>Chaar Dham • Pilgrimage Special</AnimatedEyebrow>
-        <h2 className="display section-title light hover-3d-heading">
-          Uttarakhand Sacred Circuit
-        </h2>
+        <AnimatedEyebrow>Char Dham </AnimatedEyebrow>
         <p className="section-text light">
-          Kedarnath, Badrinath and Himalayan dham routes presented in one premium pilgrimage collection.
+          Kedarnath, Badrinath, Puri, Gangotri  pilgrimage collection.
         </p>
 
         <div className="grid three package-grid-responsive mt-10">
@@ -972,7 +995,7 @@ function AirDepartureSection({ items, onSelect }) {
                   <PriceTag regularPrice={pkg.regularPrice} discountedPrice={pkg.discountedPrice} />
                 </div>
 
-                <p className="card-text light">{pkg.description}</p>
+                <p className="card-text light package-description-desktop-hide">{pkg.description}</p>
 
                 <div className="card-actions mt-6 package-card-actions">
                   <button
@@ -1048,7 +1071,7 @@ function FeaturedPackages({ items, onSelect }) {
                   <PriceTag regularPrice={pkg.regularPrice} discountedPrice={pkg.discountedPrice} />
                 </div>
 
-                <p className="card-text light">{pkg.description}</p>
+                <p className="card-text light package-description-desktop-hide">{pkg.description}</p>
 
                 <div className="card-actions mt-6 package-card-actions">
                   <button
@@ -1109,23 +1132,7 @@ function SignatureSection() {
   )
 }
 
-function ExploreCategoriesSection({ items, categories, onSelect }) {
-  const [activeCategory, setActiveCategory] = useState('')
-
-  useEffect(() => {
-    if (!activeCategory && categories?.length) {
-      setActiveCategory(categories[0].key)
-    }
-  }, [categories, activeCategory])
-
-  const filteredPackages = useMemo(() => {
-    if (!activeCategory) return []
-    return items.filter((pkg) => pkg.category === activeCategory)
-  }, [items, activeCategory])
-
-  const activeMeta =
-    categories.find((c) => c.key === activeCategory) || categories[0] || { title: '', text: '' }
-
+function ExploreCategoriesSection({ categories, onOpenCategory }) {
   return (
     <section id="categories" className="section-dark pad-section">
       <PremiumVideo sources={VIDEOS.light} overlay="dark" />
@@ -1137,64 +1144,127 @@ function ExploreCategoriesSection({ items, categories, onSelect }) {
         </h2>
 
         <p className="section-text light">
-          Click a category to reveal matching packages below. Then click any package for full information.
+          Click any category and its packages will open in a focused popup without leaving the homepage.
         </p>
 
         <div className="grid four mt-10">
-          {categories.map((item) => {
-            const active = item.key === activeCategory
-
-            return (
-              <motion.button
-                type="button"
-                key={item.key}
-                whileHover={{ y: -8, scale: 1.015 }}
-                whileTap={{ scale: 0.985 }}
-                transition={HOVER_TRANSITION}
-                onClick={() => setActiveCategory(item.key)}
-                className={cn('category-card hover-lift-soft', active && 'category-card-active')}
-              >
-                <div className="card-image-wrap mid hover-image-zoom">
-                  <img src={item.image} alt={item.title} className="card-image" />
-                  <div className="card-overlay" />
-                  <div className="category-copy">
-                    <div className="badge">
-                      {active ? 'Selected Category' : 'Click to Explore'}
-                    </div>
-                    <h3 className="display card-title light mt-4 hover-3d-heading">
-                      {item.title}
-                    </h3>
-                    <p className="card-text light mt-3">{item.text}</p>
-                  </div>
+          {categories.map((item) => (
+            <motion.button
+              type="button"
+              key={item.key}
+              whileHover={{ y: -8, scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
+              transition={HOVER_TRANSITION}
+              onClick={() => onOpenCategory?.(item.key)}
+              className="category-card hover-lift-soft"
+            >
+              <div className="card-image-wrap mid hover-image-zoom">
+                <img src={item.image} alt={item.title} className="card-image" />
+                <div className="card-overlay" />
+                <div className="category-copy">
+                  <div className="badge">Click to Explore</div>
+                  <h3 className="display card-title light mt-4 hover-3d-heading">
+                    {item.title}
+                  </h3>
+                  <p className="card-text light mt-3">{item.text}</p>
                 </div>
-              </motion.button>
-            )
-          })}
-        </div>
-
-        <div className="panel dark-panel mt-12 hover-panel-glow">
-          <div className="section-head between gap-4">
-            <div>
-              <div className="mini-label">Showing Packages</div>
-              <h3 className="display section-subtitle light hover-3d-heading">
-                {activeMeta.title}
-              </h3>
-              <p className="card-text light mt-2">{activeMeta.text}</p>
-            </div>
-
-            <div className="count-pill">
-              {filteredPackages.length} package{filteredPackages.length !== 1 ? 's' : ''}
-            </div>
-          </div>
-
-          <div className="grid three package-grid-responsive mt-8">
-            {filteredPackages.map((pkg) => (
-              <PackageCard key={pkg.id} pkg={pkg} onSelect={onSelect} dark compact />
-            ))}
-          </div>
+              </div>
+            </motion.button>
+          ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function CategoryPackagesOverlay({ category, packages, onSelect, onClose }) {
+  const [activeImage, setActiveImage] = useState(0)
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow
+    const previousHtmlOverflow = document.documentElement.style.overflow
+
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousHtmlOverflow
+    }
+  }, [])
+
+  useEffect(() => {
+    setActiveImage(0)
+  }, [category?.key])
+
+  if (!category) return null
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="modal-backdrop category-backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="category-modal-card"
+          initial={{ opacity: 0, y: 28, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 18, scale: 0.98 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="category-modal-hero">
+            <img
+              src={category.image}
+              alt={category.title}
+              className="category-modal-hero-image"
+            />
+            <div className="category-modal-overlay" />
+            <div className="category-modal-copy">
+              <div className="badge">Selected Category</div>
+              <h3 className="display section-subtitle light hover-3d-heading mt-4">
+                {category.title}
+              </h3>
+              <p className="card-text light mt-3">{category.text}</p>
+            </div>
+            <button onClick={onClose} className="modal-close category-modal-close">
+              <X className="icon-sm" />
+            </button>
+          </div>
+
+          <div className="category-modal-body">
+            <div className="section-head between gap-4">
+              <div>
+                <div className="mini-label">Matching Packages</div>
+                <p className="card-text light mt-2">
+                  Cross button dabate hi aap wahi homepage scroll position par wapas aa jaoge.
+                </p>
+              </div>
+
+              <div className="count-pill">
+                {packages.length} package{packages.length !== 1 ? 's' : ''}
+              </div>
+            </div>
+
+            {packages.length === 0 ? (
+              <div className="panel dark-panel mt-8">
+                <p className="card-text light">
+                  Is category me abhi koi package nahi mila. Admin se isme packages add kiye ja sakte hain.
+                </p>
+              </div>
+            ) : (
+              <div className="grid three package-grid-responsive mt-8">
+                {packages.map((pkg) => (
+                  <PackageCard key={pkg.id} pkg={pkg} onSelect={onSelect} dark compact />
+                ))}
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
@@ -1207,14 +1277,15 @@ function WhyTravelSection() {
     },
     {
       icon: ShieldCheck,
-      title: 'Elegant trust',
-      text: 'Aadisakti is built to feel premium, credible, and calm across every touchpoint.',
+      title: 'Credible planning',
+      text: 'Transport, stays, support and movement are structured to feel premium, credible, and calm across every touchpoint.',
     },
     {
       icon: HeartHandshake,
       title: 'Human-first support',
       text: 'Families, groups, and solo travelers all get a smoother, more caring experience.',
     },
+    ...signatureCards,
   ]
 
   return (
@@ -1941,6 +2012,28 @@ export default function App() {
   return <WebsiteApp />
 }
 
+function RoutePageShell({ eyebrow, title, text, onBack, children }) {
+  return (
+    <main className="route-main">
+      <section className="section-dark route-page-hero">
+        <PremiumVideo sources={VIDEOS.ambient} overlay="dark" />
+        <div className="container route-page-copy">
+          <AnimatedEyebrow>{eyebrow}</AnimatedEyebrow>
+          <h1 className="display section-title light hover-3d-heading">{title}</h1>
+          <p className="section-text light route-page-text">{text}</p>
+          <div className="hero-actions">
+            <button type="button" onClick={onBack} className="cta-btn white hover-btn-pop">
+              Back to Homepage
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {children}
+    </main>
+  )
+}
+
 function WebsiteApp() {
   useAccentMode()
 
@@ -1952,6 +2045,8 @@ function WebsiteApp() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeSearchQuery, setActiveSearchQuery] = useState('')
   const [compactSearch, setCompactSearch] = useState(false)
+  const [currentRoute, setCurrentRoute] = useState(getWebsiteRoute())
+  const [activeCategoryKey, setActiveCategoryKey] = useState('')
 
   useEffect(() => {
     fetch('/api/packages')
@@ -1986,18 +2081,27 @@ function WebsiteApp() {
       )
       .catch(() => setSharedJourneys(BACKUP_SHARED_JOURNEYS))
   }, [])
+
   useEffect(() => {
-  const handleScroll = () => {
-    setCompactSearch(window.scrollY > 80)
-  }
+    const handleScroll = () => {
+      setCompactSearch(window.scrollY > 80)
+    }
 
-  handleScroll()
-  window.addEventListener('scroll', handleScroll, { passive: true })
+    const handlePopState = () => {
+      setCurrentRoute(getWebsiteRoute())
+    }
 
-  return () => {
-    window.removeEventListener('scroll', handleScroll)
-  }
-}, [])
+    handleScroll()
+    handlePopState()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
 
   const latestTestimonials = useMemo(
     () => getLatestVisibleTestimonials(testimonialsState),
@@ -2014,8 +2118,24 @@ function WebsiteApp() {
     [packagesState, activeSearchQuery],
   )
 
+  const activeCategory = useMemo(
+    () => categoriesState.find((item) => item.key === activeCategoryKey) || null,
+    [categoriesState, activeCategoryKey],
+  )
+
+  const activeCategoryPackages = useMemo(() => {
+    if (!activeCategoryKey) return []
+    return packagesState.filter((pkg) => pkg.category === activeCategoryKey)
+  }, [packagesState, activeCategoryKey])
+
   const handleSearch = () => {
     setActiveSearchQuery(searchQuery)
+    if (currentRoute !== 'home') {
+      updateWebsiteRoute('home')
+      setCurrentRoute('home')
+      setTimeout(() => scrollToId('search-results'), 120)
+      return
+    }
     setTimeout(() => scrollToId('search-results'), 60)
   }
 
@@ -2025,53 +2145,133 @@ function WebsiteApp() {
     )
   }
 
+  const handleNavigate = (target) => {
+    if (target === 'home') {
+      if (currentRoute !== 'home') {
+        updateWebsiteRoute('home')
+        setCurrentRoute('home')
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    if (target === 'b2b' || target === 'air-departures') {
+      updateWebsiteRoute(target)
+      setCurrentRoute(target)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    if (currentRoute !== 'home') {
+      updateWebsiteRoute('home')
+      setCurrentRoute('home')
+      setTimeout(() => scrollToId(target), 120)
+      return
+    }
+
+    scrollToId(target)
+  }
+
+  const handleOpenCategory = (categoryKey) => {
+    setActiveCategoryKey(categoryKey)
+  }
+
+  const handleCloseCategory = () => {
+    setActiveCategoryKey('')
+  }
+
+  const isHomeRoute = currentRoute === 'home'
+
   return (
     <div className={cn('app-root', 'theme-brand')}>
       <TravelCursor />
-      <Navbar />
-      <div className={cn('sticky-search-wrap', compactSearch && 'compact-search')}>
-  <div className="container">
-    <SearchPackagesBar
-      query={searchQuery}
-      setQuery={setSearchQuery}
-      onSearch={handleSearch}
-      matches={liveMatches}
-    />
-  </div>
-</div>
+      <Navbar onNavigate={handleNavigate} currentRoute={currentRoute} />
 
-      <main>
-        <Hero
-          query={searchQuery}
-          setQuery={setSearchQuery}
-          onSearch={handleSearch}
-          matches={liveMatches}
-        />
-        <SearchResultsSection
-          query={activeSearchQuery}
-          items={searchResults}
-          onSelect={setSelectedPackage}
-        />
-        <UttarakhandSacredCircuitSection
-          items={packagesState}
-          onSelect={setSelectedPackage}
-        />
-        <FeaturedPackages items={packagesState} onSelect={setSelectedPackage} />
-        <AirDepartureSection items={packagesState} onSelect={setSelectedPackage} />
-        <SignatureSection />
-        <ExploreCategoriesSection
-          items={packagesState}
-          categories={categoriesState}
-          onSelect={setSelectedPackage}
-        />
-        <WhyTravelSection />
-        <SharedJourneysSection items={sharedJourneysState} />
-        <SpiritualEchoesSection testimonials={latestTestimonials} />
-        <ReviewFormSection onNewReview={handleNewReview} />
-        <B2BPortalSection />
-      </main>
+      {isHomeRoute && (
+        <>
+          <div className={cn('sticky-search-wrap desktop-search-floating', compactSearch && 'compact-search')}>
+            <div className="container search-container-center">
+              <SearchPackagesBar
+                query={searchQuery}
+                setQuery={setSearchQuery}
+                onSearch={handleSearch}
+                matches={liveMatches}
+              />
+            </div>
+          </div>
+
+          <div className={cn('sticky-search-wrap mobile-search-sticky', compactSearch && 'compact-search')}>
+            <div className="container">
+              <SearchPackagesBar
+                query={searchQuery}
+                setQuery={setSearchQuery}
+                onSearch={handleSearch}
+                matches={liveMatches}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {isHomeRoute ? (
+        <main>
+          <Hero
+            query={searchQuery}
+            setQuery={setSearchQuery}
+            onSearch={handleSearch}
+            matches={liveMatches}
+          />
+          <SearchResultsSection
+            query={activeSearchQuery}
+            items={searchResults}
+            onSelect={setSelectedPackage}
+          />
+          <UttarakhandSacredCircuitSection
+            items={packagesState}
+            onSelect={setSelectedPackage}
+          />
+          <FeaturedPackages items={packagesState} onSelect={setSelectedPackage} />
+          <ExploreCategoriesSection
+            categories={categoriesState}
+            onOpenCategory={handleOpenCategory}
+          />
+          <WhyTravelSection />
+          <SharedJourneysSection items={sharedJourneysState} />
+          <SpiritualEchoesSection testimonials={latestTestimonials} />
+          <ReviewFormSection onNewReview={handleNewReview} />
+        </main>
+      ) : currentRoute === 'b2b' ? (
+        <RoutePageShell
+          eyebrow="B2B Portal"
+          title="Aadishakti travel partner desk"
+          text="Yeh section ab homepage se alag rakha gaya hai. Navbar se B2B click karte hi dedicated partner page khulega."
+          onBack={() => handleNavigate('home')}
+        >
+          <B2BPortalSection />
+        </RoutePageShell>
+      ) : (
+        <RoutePageShell
+          eyebrow="Air Departures"
+          title="Premium air-assisted darshan departures"
+          text="Air Departure packages ab homepage par scroll karte waqt nahi dikhenge. Yeh page sirf navbar se open hoga."
+          onBack={() => handleNavigate('home')}
+        >
+          <AirDepartureSection items={packagesState} onSelect={setSelectedPackage} />
+        </RoutePageShell>
+      )}
 
       <Footer />
+
+      <AnimatePresence>
+        {activeCategory && (
+          <CategoryPackagesOverlay
+            category={activeCategory}
+            packages={activeCategoryPackages}
+            onSelect={setSelectedPackage}
+            onClose={handleCloseCategory}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {selectedPackage && (

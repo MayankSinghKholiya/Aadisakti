@@ -240,6 +240,27 @@ function defaultSocialPosts() {
     },
   ]
 }
+function normalizeCategory(raw = {}) {
+  const key = String(raw.key || raw.title || '')
+    .trim()
+    .replace(/\s+/g, ' ')
+  const slug = key
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
+  return {
+    id: raw.id || slug || String(Date.now()),
+    key: key || 'New Category',
+    slug: raw.slug || slug || String(Date.now()),
+    title: raw.title || key || 'New Category',
+    text: raw.text || '',
+    image: raw.image || '',
+    createdAt: raw.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  }
+}
+
 function defaultCategories() {
   return [
     {
@@ -321,11 +342,63 @@ app.get('/api/categories', (req, res) => {
   let categories = readJSON(categoriesFile)
 
   if (!Array.isArray(categories) || categories.length === 0) {
-    categories = defaultCategories()
+    categories = defaultCategories().map(normalizeCategory)
     writeJSON(categoriesFile, categories)
+  } else {
+    categories = categories.map(normalizeCategory)
   }
 
   res.json(categories)
+})
+
+app.post('/api/categories', requireAuth, (req, res) => {
+  const categories = readJSON(categoriesFile).map(normalizeCategory)
+  const payload = normalizeCategory({
+    ...req.body,
+    id: req.body?.id || String(Date.now()),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  })
+
+  categories.unshift(payload)
+  writeJSON(categoriesFile, categories)
+  res.json(payload)
+})
+
+app.put('/api/categories/:id', requireAuth, (req, res) => {
+  const id = req.params.id
+  const categories = readJSON(categoriesFile).map(normalizeCategory)
+  const index = categories.findIndex((item) => String(item.id) === String(id))
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Category not found' })
+  }
+
+  const updated = normalizeCategory({
+    ...categories[index],
+    ...req.body,
+    id: categories[index].id,
+    createdAt: categories[index].createdAt,
+    updatedAt: new Date().toISOString(),
+  })
+
+  categories[index] = updated
+  writeJSON(categoriesFile, categories)
+  res.json(updated)
+})
+
+app.delete('/api/categories/:id', requireAuth, (req, res) => {
+  const id = req.params.id
+  const categories = readJSON(categoriesFile).map(normalizeCategory)
+  const index = categories.findIndex((item) => String(item.id) === String(id))
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Category not found' })
+  }
+
+  const removed = categories.splice(index, 1)[0]
+  writeJSON(categoriesFile, categories)
+  res.json(removed)
 })
 
 app.get('/api/testimonials', (req, res) => {
